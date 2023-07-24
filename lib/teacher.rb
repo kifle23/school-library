@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Represents a teacher with a name, age, and specialization.
 # Inherits from Person class.
 class Teacher < Person

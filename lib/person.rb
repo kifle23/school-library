@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Represents a person with a name, age, and parent permission status.
 class Person
   attr_reader :id
