@@ -1,4 +1,4 @@
-require_relative '../decorator/nameable'
+require_relative '../decorators/nameable'
 
 # Represents a person with a name, age, and parent permission status.
 class Person < Nameable
