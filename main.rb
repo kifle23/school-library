@@ -6,15 +6,12 @@ require_relative 'lib/rental'
 require_relative 'decorators/capitalize_decorator'
 require_relative 'decorators/trimmer_decorator'
 
-
 person = Person.new('maximilianus', 22)
-
 puts person.correct_name
 capitalized_person = CapitalizeDecorator.new(person)
 puts capitalized_person.correct_name
 capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
 puts capitalized_trimmed_person.correct_name
-
 
 math_class = Classroom.new('Math')
 student1 = Student.new('Alice', 16, parent_permission: true, classroom: math_class)
@@ -28,7 +25,6 @@ student3 = Student.new('Charlie', 15)
 math_class.add_student(student3)
 puts student3.classroom
 puts math_class.students
-
 
 book = Book.new('Book 1', 'Author 1')
 person2 = Person.new('Alice', 16, parent_permission: true)
