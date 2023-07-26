@@ -3,7 +3,7 @@ require_relative '../decorators/nameable'
 # Represents a person with a name, age, and parent permission status.
 class Person < Nameable
   attr_reader :id
-  attr_accessor :name, :age, :parent_permission
+  attr_accessor :name, :age, :parent_permission, :rentals
 
   def initialize(name = 'Unknown', age = 0, parent_permission: true)
     super()
@@ -11,6 +11,7 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def correct_name
