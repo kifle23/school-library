@@ -30,8 +30,10 @@ class Person < Nameable
     "Person (id: #{@id}, name: #{@name}, age: #{@age}, parent_permission: #{@parent_permission})"
   end
 
-  def add_rental(rental)
+  def add_rental(person, date)
+    rental = Rental.new(date, self, person)
     @rentals << rental
+    person.add_rental(rental)
   end
 
   private :of_age?
