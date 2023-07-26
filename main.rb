@@ -30,9 +30,9 @@ puts student3.classroom
 puts math_class.students
 
 
-book = Book.new("Book 1", "Author 1")
-person2 = Person.new("Alice", 16, parent_permission: true)
-rental = Rental.new("2023-07-26", book, person2)
+book = Book.new('Book 1', 'Author 1')
+person2 = Person.new('Alice', 16, parent_permission: true)
+Rental.new('2023-07-26', book, person2)
 
 puts book.rentals.inspect
 puts person2.rentals.inspect
