@@ -1,34 +1,46 @@
-require_relative 'lib/person'
-require_relative 'lib/class_room'
-require_relative 'lib/student'
-require_relative 'lib/book'
-require_relative 'lib/rental'
-require_relative 'decorators/capitalize_decorator'
-require_relative 'decorators/trimmer_decorator'
+require_relative 'lib/app.rb'
 
-person = Person.new('maximilianus', 22)
-puts person.correct_name
-capitalized_person = CapitalizeDecorator.new(person)
-puts capitalized_person.correct_name
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-puts capitalized_trimmed_person.correct_name
+# The `main` method is the entry point for the application. 
+#It creates an instance of the `App` class and enters
+# a loop that presents the user with a list of options to perform.
 
-math_class = Classroom.new('Math')
-student1 = Student.new('Alice', 16, parent_permission: true, classroom: math_class)
-english_class = Classroom.new('English')
-student2 = Student.new('Bob', 17, parent_permission: true, classroom: english_class)
-math_class.add_student(student1)
-english_class.add_student(student2)
-puts math_class.students.inspect
-puts english_class.students.inspect
-student3 = Student.new('Charlie', 15)
-math_class.add_student(student3)
-puts student3.classroom
-puts math_class.students
+def main
+  app = App.new
 
-book = Book.new('Book 1', 'Author 1')
-person2 = Person.new('Alice', 16, parent_permission: true)
-Rental.new('2023-07-26', book, person2)
+  loop do
+    puts "What would you like to do?"
+    puts "1. List all books"
+    puts "2. List all people"
+    puts "3. Create a person"
+    puts "4. Create a book"
+    puts "5. Create a rental"
+    puts "6. List all rentals for a given person id"
+    puts "7. Quit"
+    print "> "
 
-puts book.rentals.inspect
-puts person2.rentals.inspect
+    choice = gets.chomp.to_i
+
+    case choice
+    when 1
+      app.list_books
+    when 2
+      app.list_people
+    when 3
+      app.create_person
+    when 4
+      app.create_book
+    when 5
+      app.create_rental
+    when 6
+      app.list_rentals_by_person_id
+    when 7
+      break
+    else
+      puts "Invalid choice. Please try again."
+    end
+
+    puts "\n"
+  end
+end
+
+main

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'person'
 # Represents a student with a name, age, parent permission status, and classroom.
 # Inherits from Person class.

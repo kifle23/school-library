@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../decorators/nameable'
 
 # Represents a person with a name, age, and parent permission status.

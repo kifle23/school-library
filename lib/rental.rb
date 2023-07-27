@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Rental class represents a rental with a date.
 # It provides a getter and setter for the date.
 class Rental

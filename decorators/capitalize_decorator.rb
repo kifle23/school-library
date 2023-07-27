@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'decorator'
 
 # A decorator that capitalizes the name returned by the decorated object's `correct_name` method.

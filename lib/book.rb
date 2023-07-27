@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Book class represents a book with a title and an author.
 # It provides getters and setters for the title and author.
 class Book
