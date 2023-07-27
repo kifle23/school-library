@@ -61,27 +61,6 @@ class App
     rental_creator.create_rental
   end
 
-  # def list_rentals_by_person_id
-  #   print 'Person id: '
-  #   person_id = gets.chomp.to_i
-  #   person = @people.find { |p| p.id == person_id }
-
-  #   unless person
-  #     puts "Could not find person with id #{person_id}."
-  #     return
-  #   end
-
-  #   rentals = @rentals.select { |r| r.person == person }
-
-  #   if rentals.empty?
-  #     puts "#{person.name} (id: #{person.id}) has no rentals."
-  #   else
-  #     puts "All rentals for #{person.name} (id: #{person.id}):"
-  #     rentals.each do |rental|
-  #       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
-  #     end
-  #   end
-  # end
   def list_rentals_by_person_id
     person_id = read_person_id_from_user_input
     person = find_person_by_id(person_id)
