@@ -42,7 +42,7 @@ def perform_action_for_choice(choice, app)
   when 4 then app.create_book
   when 5 then app.create_rental
   when 6 then app.list_rentals_by_person_id
-  else        puts 'Invalid choice. Please try again.'
+  else puts 'Invalid choice. Please try again.'
   end
 end
 

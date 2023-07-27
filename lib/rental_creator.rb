@@ -20,7 +20,7 @@ class RentalCreator
     rental_date = read_rental_date_from_user_input
     create_new_rental(rental_date, book, person)
     puts "Created rental for '#{book.title}' by #{book.author} " \
-     "on #{rental_date}, for #{person.name} (id: #{person.id})."
+         "on #{rental_date}, for #{person.name} (id: #{person.id})."
   rescue ArgumentError => e
     puts "Error: #{e.message}"
   end
