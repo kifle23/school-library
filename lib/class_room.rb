@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # The Classroom class represents a classroom that contains a group of students.
 class Classroom
   attr_reader :label, :students

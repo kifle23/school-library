@@ -8,6 +8,7 @@ require_relative 'person_creator'
 require_relative 'book_creator'
 require_relative 'rental_creator'
 
+# The main application class for managing rentals of books to people.
 class App
   def initialize
     @people = []
@@ -27,39 +28,26 @@ class App
   end
 
   def list_people
-    puts 'All people:'
     if @people.empty?
       puts 'No people available.'
-    else
-      @people.each do |person|
-        if person.is_a?(Student)
-          puts "[Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-        elsif person.is_a?(Teacher)
-          puts "[Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-        else
-          puts 'Unknown person type'
-        end
-      end
+      return
+    end
+
+    puts 'All people:'
+    @people.each do |person|
+      puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
   end
 
   def create_person
-    puts 'What type of person would you like to create?'
-    puts '1. Student'
-    puts '2. Teacher'
-    print '> '
-
+    puts 'Do you want to create a Student (1) or Teacher (2)? [Input the number]:'
     choice = gets.chomp.to_i
-
     person_creator = PersonCreator.new(@people)
-
     case choice
     when 1
       person_creator.create_student
     when 2
       person_creator.create_teacher
-    else
-      puts 'Invalid choice. Please try again.'
     end
   end
 
@@ -73,25 +61,64 @@ class App
     rental_creator.create_rental
   end
 
+  # def list_rentals_by_person_id
+  #   print 'Person id: '
+  #   person_id = gets.chomp.to_i
+  #   person = @people.find { |p| p.id == person_id }
+
+  #   unless person
+  #     puts "Could not find person with id #{person_id}."
+  #     return
+  #   end
+
+  #   rentals = @rentals.select { |r| r.person == person }
+
+  #   if rentals.empty?
+  #     puts "#{person.name} (id: #{person.id}) has no rentals."
+  #   else
+  #     puts "All rentals for #{person.name} (id: #{person.id}):"
+  #     rentals.each do |rental|
+  #       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+  #     end
+  #   end
+  # end
   def list_rentals_by_person_id
-    print 'Person id: '
-    person_id = gets.chomp.to_i
-    person = @people.find { |p| p.id == person_id }
+    person_id = read_person_id_from_user_input
+    person = find_person_by_id(person_id)
 
-    unless person
-      puts "Could not find person with id #{person_id}."
-      return
-    end
+    return unless person
 
-    rentals = @rentals.select { |r| r.person == person }
+    rentals = get_rentals_by_person(person)
 
     if rentals.empty?
       puts "#{person.name} (id: #{person.id}) has no rentals."
     else
       puts "All rentals for #{person.name} (id: #{person.id}):"
-      rentals.each do |rental|
-        puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
-      end
+      print_rentals(rentals)
+    end
+  end
+
+  def read_person_id_from_user_input
+    print 'Person id: '
+    gets.chomp.to_i
+  end
+
+  def find_person_by_id(id)
+    person = @people.find { |p| p.id == id }
+    unless person
+      puts "Could not find person with id #{id}."
+      return nil
+    end
+    person
+  end
+
+  def get_rentals_by_person(person)
+    @rentals.select { |r| r.person == person }
+  end
+
+  def print_rentals(rentals)
+    rentals.each do |rental|
+      puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
     end
   end
 end

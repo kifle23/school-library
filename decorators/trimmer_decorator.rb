@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'decorator'
 
 # A decorator that trims the name returned by the decorated object's

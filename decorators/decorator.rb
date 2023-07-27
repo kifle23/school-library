@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'nameable'
 
 # A base class for decorators that add functionality to an object without modifying its behavior.
