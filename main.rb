@@ -1,22 +1,24 @@
-require_relative 'lib/app.rb'
+# frozen_string_literal: true
 
-# The `main` method is the entry point for the application. 
-#It creates an instance of the `App` class and enters
+require_relative 'lib/app'
+
+# The `main` method is the entry point for the application.
+# It creates an instance of the `App` class and enters
 # a loop that presents the user with a list of options to perform.
 
 def main
   app = App.new
 
   loop do
-    puts "What would you like to do?"
-    puts "1. List all books"
-    puts "2. List all people"
-    puts "3. Create a person"
-    puts "4. Create a book"
-    puts "5. Create a rental"
-    puts "6. List all rentals for a given person id"
-    puts "7. Quit"
-    print "> "
+    puts 'What would you like to do?'
+    puts '1. List all books'
+    puts '2. List all people'
+    puts '3. Create a person'
+    puts '4. Create a book'
+    puts '5. Create a rental'
+    puts '6. List all rentals for a given person id'
+    puts '7. Quit'
+    print '> '
 
     choice = gets.chomp.to_i
 
@@ -36,7 +38,7 @@ def main
     when 7
       break
     else
-      puts "Invalid choice. Please try again."
+      puts 'Invalid choice. Please try again.'
     end
 
     puts "\n"
