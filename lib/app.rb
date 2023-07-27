@@ -1,15 +1,12 @@
-# frozen_string_literal: true
-
 require_relative 'book'
 require_relative 'person'
 require_relative 'teacher'
 require_relative 'class_room'
 require_relative 'rental'
 require_relative 'student'
-
-# The `App` class represents an application that manages a collection of books, people, and rentals.
-# It provides methods to list all books and people, create a person (student or teacher), create a book,
-# create a rental, and list all rentals for a given person ID.
+require_relative 'person_creator'
+require_relative 'book_creator'
+require_relative 'rental_creator'
 
 class App
   def initialize
@@ -54,114 +51,26 @@ class App
 
     choice = gets.chomp.to_i
 
+    person_creator = PersonCreator.new(@people)
+
     case choice
     when 1
-      create_student
+      person_creator.create_student
     when 2
-      create_teacher
+      person_creator.create_teacher
     else
       puts 'Invalid choice. Please try again.'
     end
   end
 
-  def create_student
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Age: '
-    age = gets.chomp.to_i
-
-    print 'Has parent permission? (y/n): '
-    parent_permission = gets.chomp.downcase == 'y'
-
-    print 'Classroom label: '
-    classroom_label = gets.chomp
-
-    student = Student.new(name, age, parent_permission: parent_permission, classroom: Classroom.new(classroom_label))
-    @people << student
-    puts "Created student #{student.name} with id #{student.id}."
-  rescue ArgumentError => e
-    puts "Error: #{e.message}"
-  end
-
-  def create_teacher
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Age: '
-    age = gets.chomp.to_i
-
-    print 'Specialization: '
-    specialization = gets.chomp
-
-    teacher = Teacher.new(name, age, specialization)
-    @people << teacher
-    puts "Created teacher #{teacher.name} with id #{teacher.id}."
-  rescue ArgumentError => e
-    puts "Error: #{e.message}"
-  end
-
   def create_book
-    print 'Title: '
-    title = gets.chomp
-
-    print 'Author: '
-    author = gets.chomp
-
-    if @books.any? { |book| book.title == title && book.author == author }
-      print 'A book with that title and author already exists. Create anyway? (y/n): '
-      create_anyway = gets.chomp.downcase == 'y'
-      return unless create_anyway
-    end
-
-    book = Book.new(title, author)
-    @books << book
-    puts "Created book '#{book.title}' by #{book.author}."
-  rescue ArgumentError => e
-    puts "Error: #{e.message}"
+    book_creator = BookCreator.new(@books)
+    book_creator.create_book
   end
 
   def create_rental
-    puts 'Available books:'
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title:\"#{book.title}\", Author:#{book.author}"
-    end
-
-    print 'Select a book (by index): '
-    book_index = gets.chomp.to_i
-    book = @books[book_index]
-
-    unless book
-      puts 'Invalid book index.'
-      return
-    end
-
-    puts 'Available people:'
-    @people.each_with_index do |person, index|
-      if person.is_a?(Student)
-        puts "#{index}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      elsif person.is_a?(Teacher)
-        puts "#{index}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      else
-        puts "#{index}) Unknown person type"
-      end
-    end
-
-    print 'Select a person (by index): '
-    person_index = gets.chomp.to_i
-    person = @people[person_index]
-
-    unless person
-      puts 'Invalid person index.'
-      return
-    end
-
-    print 'Rental date (yyyy-mm-dd): '
-    rental_date = gets.chomp
-    rental = Rental.new(rental_date, book, person)
-    @rentals << rental
-
-    puts "Created rental for '#{book.title}' by #{book.author} on #{rental_date}, for #{person.name} (id: #{person.id})."
+    rental_creator = RentalCreator.new(@books, @people, @rentals)
+    rental_creator.create_rental
   end
 
   def list_rentals_by_person_id
