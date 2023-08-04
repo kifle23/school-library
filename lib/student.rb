@@ -1,21 +1,34 @@
 require_relative 'person'
-# Represents a student with a name, age, parent permission status, and classroom.
-# Inherits from Person class.
-class Student < Person
-  attr_accessor :classroom
 
-  def initialize(name = 'Unknown', age = 0, parent_permission: true, classroom: nil)
-    super(name, age, parent_permission: parent_permission)
-    @classroom = nil
-    self.classroom = classroom if classroom
+class Student < Person
+  attr_reader :classroom
+  attr_accessor :id
+
+  def initialize(age, classroom, **defaults)
+    @id = rand(30..5000)
+    defaults[:name] ||= 'Unknown'
+    defaults[:parent_permission] = true if defaults[:parent_permission].nil?
+    super(age, **defaults)
+    @classroom = classroom
+  end
+
+  def classroom=(classroom)
+    @classroom = classroom
+    classroom.students.push(self) unless classroom.students.include?(self)
   end
 
   def play_hooky
     '¯\\(ツ)/¯'
   end
 
-  def enroll_in_classroom(classroom)
-    @classroom = classroom
-    classroom.add_student(self)
+  def to_h
+    {
+      type: self.class.name,
+      id: @id,
+      name: @name,
+      age: @age,
+      parent_permission: @parent_permission,
+      classroom: @classroom
+    }
   end
 end

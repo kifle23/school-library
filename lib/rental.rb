@@ -7,7 +7,15 @@ class Rental
     @date = date
     @book = book
     @person = person
-    @book.rentals << self
-    @person.rentals << self
+    book.rentals << self
+    person.rentals << self
+  end
+
+  def to_h
+    {
+      date: @date,
+      book: @book.to_h,
+      person: @person.to_h
+    }
   end
 end

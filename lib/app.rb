@@ -1,103 +1,66 @@
-require_relative 'book'
-require_relative 'person'
-require_relative 'teacher'
-require_relative 'class_room'
-require_relative 'rental'
-require_relative 'student'
+require_relative 'book_lister'
+require_relative 'person_lister'
 require_relative 'person_creator'
 require_relative 'book_creator'
 require_relative 'rental_creator'
+require_relative 'rental_lister'
+require_relative 'utility/menu'
+require_relative 'utility/io'
+require_relative 'read_data/load_book'
+require_relative 'read_data/load_people'
+require_relative 'read_data/load_rentals'
+require 'json'
+require 'fileutils'
 
 # The main application class for managing rentals of books to people.
 class App
+  BOOKS_FILE = './data/books.json'.freeze
+  PEOPLE_FILE = './data/people.json'.freeze
+  RENTALS_FILE = './data/rentals.json'.freeze
+
   def initialize
-    @people = []
-    @books = []
-    @rentals = []
+    @books = read_books(BOOKS_FILE) || []
+    @people = read_people(PEOPLE_FILE) || []
+    @rentals = read_rentals(RENTALS_FILE) || []
+    @book_lister = BookLister.new(@books)
+    @person_lister = PersonLister.new(@people)
+    @person_creator = PersonCreator.new(@people)
+    @book_creator = BookCreator.new(@books)
+    @rental_creator = RentalCreator.new(@books, @people, @rentals)
+    @rental_lister = RentalLister.new(@rentals)
+    @menu = Menu.new
+    @io = IO.new(
+      book_lister: BookLister.new(@books),
+      person_lister: PersonLister.new(@people),
+      person_creator: PersonCreator.new(@people),
+      book_creator: BookCreator.new(@books),
+      rental_creator: RentalCreator.new(@books, @people, @rentals),
+      rental_lister: RentalLister.new(@rentals)
+    )
   end
 
-  def list_books
-    puts 'All books:'
-    if @books.empty?
-      puts 'No books available.'
-    else
-      @books.each do |book|
-        puts "Title:\"#{book.title}\", Author:#{book.author}"
-      end
+  def start
+    loop do
+      @menu.print
+      choice = gets.chomp.downcase
+      break unless @io.handle_choice(choice)
+
+      puts "\n"
     end
+    save_data
   end
 
-  def list_people
-    if @people.empty?
-      puts 'No people available.'
-      return
-    end
+  private
 
-    puts 'All people:'
-    @people.each do |person|
-      puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
+  def save_data
+    save_json(@books, BOOKS_FILE)
+    save_json(@people, PEOPLE_FILE)
+    save_json(@rentals, RENTALS_FILE)
   end
 
-  def create_person
-    puts 'Do you want to create a Student (1) or Teacher (2)? [Input the number]:'
-    choice = gets.chomp.to_i
-    person_creator = PersonCreator.new(@people)
-    case choice
-    when 1
-      person_creator.create_student
-    when 2
-      person_creator.create_teacher
-    end
-  end
-
-  def create_book
-    book_creator = BookCreator.new(@books)
-    book_creator.create_book
-  end
-
-  def create_rental
-    rental_creator = RentalCreator.new(@books, @people, @rentals)
-    rental_creator.create_rental
-  end
-
-  def list_rentals_by_person_id
-    person_id = read_person_id_from_user_input
-    person = find_person_by_id(person_id)
-
-    return unless person
-
-    rentals = get_rentals_by_person(person)
-
-    if rentals.empty?
-      puts "#{person.name} (id: #{person.id}) has no rentals."
-    else
-      puts "All rentals for #{person.name} (id: #{person.id}):"
-      print_rentals(rentals)
-    end
-  end
-
-  def read_person_id_from_user_input
-    print 'Person id: '
-    gets.chomp.to_i
-  end
-
-  def find_person_by_id(id)
-    person = @people.find { |p| p.id == id }
-    unless person
-      puts "Could not find person with id #{id}."
-      return nil
-    end
-    person
-  end
-
-  def get_rentals_by_person(person)
-    @rentals.select { |r| r.person == person }
-  end
-
-  def print_rentals(rentals)
-    rentals.each do |rental|
-      puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
-    end
+  def save_json(data, file_path)
+    dir_path = File.dirname(file_path)
+    FileUtils.mkdir_p(dir_path)
+    File.write(file_path, JSON.generate(data.map(&:to_h)))
   end
 end

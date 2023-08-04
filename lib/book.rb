@@ -9,9 +9,14 @@ class Book
     @rentals = []
   end
 
-  def add_rental(person, date)
-    rental = Rental.new(date, self, person)
-    @rentals << rental
-    person.add_rental(rental)
+  def add_rental(date, person)
+    Rental.new(date, self, person)
+  end
+
+  def to_h
+    {
+      title: @title,
+      author: @author
+    }
   end
 end

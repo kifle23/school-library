@@ -1,0 +1,1 @@
+[{"type":"Student","id":6102,"name":"John","age":15,"parent_permission":true,"classroom":"classroom"},{"type":"Teacher","id":9108,"name":"James","age":25,"specialization":"Math"}]
