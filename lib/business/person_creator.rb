@@ -1,6 +1,6 @@
-require_relative 'person'
-require_relative 'student'
-require_relative 'class_room'
+require_relative '../domain/person'
+require_relative '../domain/student'
+require_relative '../domain/class_room'
 
 # The PersonCreator class is responsible for creating new Person objects.
 class PersonCreator

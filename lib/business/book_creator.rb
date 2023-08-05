@@ -1,4 +1,4 @@
-require_relative 'book'
+require_relative '../domain/book'
 # The BookCreator class is responsible for creating new Book objects.
 class BookCreator
   def initialize(books)

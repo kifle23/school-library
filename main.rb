@@ -1,4 +1,4 @@
-require_relative 'lib/app'
+require_relative 'lib/presentation/app'
 
 # The `main` method is the entry point for the application.
 # It creates an instance of the `App` class and enters

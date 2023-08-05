@@ -1,6 +1,6 @@
-require_relative 'rental'
-require_relative 'book'
-require_relative 'person'
+require_relative '../domain/rental'
+require_relative '../domain/book'
+require_relative '../domain/person'
 
 # The RentalCreator class is responsible for creating new Rental objects.
 class RentalCreator

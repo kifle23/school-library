@@ -1,12 +1,12 @@
-require_relative 'book'
-require_relative 'person'
-require_relative 'teacher'
-require_relative 'class_room'
-require_relative 'rental'
-require_relative 'student'
-require_relative 'person_creator'
-require_relative 'book_creator'
-require_relative 'rental_creator'
+require_relative '../domain/book'
+require_relative '../domain/person'
+require_relative '../domain/teacher'
+require_relative '../domain/class_room'
+require_relative '../domain/rental'
+require_relative '../domain/student'
+require_relative '../business/person_creator'
+require_relative '../business/book_creator'
+require_relative '../business/rental_creator'
 
 # The main application class for managing rentals of books to people.
 class App
