@@ -19,17 +19,14 @@ class App
     @book_lister = BookLister.new(@books)
     @person_lister = PersonLister.new(@people)
     @person_creator = PersonCreator.new(@people)
+    @book_creator = BookCreator.new(@books)
     @menu = Menu.new
     @io = @io = IO.new(
       book_lister: BookLister.new(@books),
       person_lister: PersonLister.new(@people),
-      person_creator: PersonCreator.new(@people)
+      person_creator: PersonCreator.new(@people),
+      book_creator: BookCreator.new(@books)
     )
-  end
-
-  def create_book
-    book_creator = BookCreator.new(@books)
-    book_creator.create_book
   end
 
   def create_rental

@@ -8,6 +8,7 @@ class IO
       '1' => ListAllBooksStrategy.new(args[:book_lister]),
       '2' => ListAllPeopleStrategy.new(args[:person_lister]),
       '3' => CreatePersonStrategy.new(args[:person_creator]),
+      '4' => CreateBookStrategy.new(args[:book_creator]),
       '7' => ExitStrategy.new
     }
   end
@@ -47,6 +48,17 @@ class CreatePersonStrategy
   
     def execute
       @creator.create_person
+      true
+    end
+end
+
+class CreateBookStrategy
+    def initialize(creator)
+      @creator = creator
+    end
+  
+    def execute
+      @creator.create_book
       true
     end
 end
