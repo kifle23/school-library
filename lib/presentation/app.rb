@@ -11,6 +11,7 @@ class App
     @books = []
     @people = []
     @rentals = []
+    load_data
     @book_lister = BookLister.new(@books)
     @person_lister = PersonLister.new(@people)
     @person_creator = PersonCreator.new(@people)
@@ -43,5 +44,9 @@ class App
     Save.new(@books.map(&:to_h), BOOKS_FILE).execute
     Save.new(@people.map(&:to_h), PEOPLE_FILE).execute
     Save.new(@rentals.map(&:to_h), RENTALS_FILE).execute
+  end
+
+  def load_data
+    @books = Load.new(BOOKS_FILE, :load_books_from_json).execute || []
   end
 end
