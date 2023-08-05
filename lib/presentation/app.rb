@@ -39,6 +39,9 @@ class App
 
   private
 
-  def save_data    
+  def save_data
+    Save.new(@books.map(&:to_h), BOOKS_FILE).execute
+    Save.new(@people.map(&:to_h), PEOPLE_FILE).execute
+    Save.new(@rentals.map(&:to_h), RENTALS_FILE).execute
   end
 end

@@ -14,6 +14,15 @@ class Person < Nameable
     @rentals = []
   end
 
+  def to_h
+    {
+      id: @id,
+      name: @name,
+      age: @age,
+      parent_permission: @parent_permission
+    }
+  end
+
   def correct_name
     @name
   end
