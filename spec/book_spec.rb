@@ -7,7 +7,7 @@ describe Book do
   let(:title) { 'Ruby Programming' }
   let(:author) { 'The Ruby Guy' }
   let(:book) { Book.new(title, author) }
-  
+
   describe '#initialize' do
     it 'sets the title and author' do
       expect(book.title).to eq(title)
@@ -19,7 +19,7 @@ describe Book do
     end
 
     it 'uses the provided ID if provided' do
-      id = 12345
+      id = 12_345
       book_with_id = Book.new(title, author, id: id)
       expect(book_with_id.instance_variable_get(:@id)).to eq(id)
     end

@@ -20,8 +20,8 @@ RSpec.describe Rental do
     end
 
     it 'uses the provided ID if available' do
-      rental_with_id = Rental.new(rental_date, book, person, id: 12345)
-      expect(rental_with_id.instance_variable_get(:@id)).to eq(12345)
+      rental_with_id = Rental.new(rental_date, book, person, id: 12_345)
+      expect(rental_with_id.instance_variable_get(:@id)).to eq(12_345)
     end
 
     it 'adds the rental to the book' do
