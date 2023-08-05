@@ -7,6 +7,13 @@ class Classroom
     @students = []
   end
 
+  def to_h
+    {
+      label: @label,
+      students: @students.map(&:to_h)
+    }
+  end
+
   def add_student(student)
     student.classroom&.remove_student(student)
     student.classroom = self
