@@ -14,4 +14,11 @@ class Book
     @rentals << rental
     person.add_rental(rental)
   end
+
+  def to_h
+    {
+      title: @title,
+      author: @author
+    }
+  end
 end
