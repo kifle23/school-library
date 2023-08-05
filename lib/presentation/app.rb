@@ -18,7 +18,7 @@ class App
       person_lister: PersonLister.new(@people),
       person_creator: PersonCreator.new(@people),
       book_creator: BookCreator.new(@books),
-      rental_creator: RentalCreator.new(@books, @people, @rentals),
+      rental_creator: RentalCreator.new(@books, @people, @rentals)
     )
   end
 

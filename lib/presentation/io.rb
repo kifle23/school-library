@@ -36,60 +36,59 @@ class ListAllBooksStrategy
 end
 
 class ListAllPeopleStrategy
-    def initialize(lister)
-      @lister = lister
-    end
-  
-    def execute
-      @lister.list_all_people
-      true
-    end
+  def initialize(lister)
+    @lister = lister
+  end
+
+  def execute
+    @lister.list_all_people
+    true
+  end
 end
 
 class CreatePersonStrategy
-    def initialize(creator)
-      @creator = creator
-    end
-  
-    def execute
-      @creator.create_person
-      true
-    end
+  def initialize(creator)
+    @creator = creator
+  end
+
+  def execute
+    @creator.create_person
+    true
+  end
 end
 
 class CreateBookStrategy
-    def initialize(creator)
-      @creator = creator
-    end
-  
-    def execute
-      @creator.create_book
-      true
-    end
+  def initialize(creator)
+    @creator = creator
+  end
+
+  def execute
+    @creator.create_book
+    true
+  end
 end
 
 class CreateRentalStrategy
-    def initialize(creator)
-      @creator = creator
-    end
-  
-    def execute
-      @creator.create_rental
-      true
-    end
+  def initialize(creator)
+    @creator = creator
+  end
+
+  def execute
+    @creator.create_rental
+    true
+  end
 end
 
 class ListAllRentalsStrategy
-    def initialize(lister)
-      @lister = lister
-    end
-  
-    def execute
-      @lister.list_rentals_by_person_id
-      true
-    end
+  def initialize(lister)
+    @lister = lister
+  end
+
+  def execute
+    @lister.list_rentals_by_person_id
+    true
+  end
 end
-  
 
 class ExitStrategy
   def execute
