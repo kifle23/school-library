@@ -17,22 +17,12 @@ class App
     @people = []
     @rentals = []
     @book_lister = BookLister.new(@books)
+    @person_lister = PersonLister.new(@people)
     @menu = Menu.new
     @io = @io = IO.new(
-      book_lister: BookLister.new(@books)
+      book_lister: BookLister.new(@books),
+      person_lister: PersonLister.new(@people)
     )
-  end
-
-  def list_people
-    if @people.empty?
-      puts 'No people available.'
-      return
-    end
-
-    puts 'All people:'
-    @people.each do |person|
-      puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
   end
 
   def create_person
