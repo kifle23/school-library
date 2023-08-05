@@ -3,6 +3,10 @@ require_relative 'io'
 
 # The main application class for managing rentals of books to people.
 class App
+  BOOKS_FILE = './data/books.json'.freeze
+  PEOPLE_FILE = './data/people.json'.freeze
+  RENTALS_FILE = './data/rentals.json'.freeze
+
   def initialize
     @books = []
     @people = []
@@ -30,5 +34,11 @@ class App
 
       puts "\n"
     end
+    save_data
+  end
+
+  private
+
+  def save_data    
   end
 end
