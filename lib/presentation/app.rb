@@ -7,24 +7,20 @@ require_relative '../domain/student'
 require_relative '../business/person_creator'
 require_relative '../business/book_creator'
 require_relative '../business/rental_creator'
+require_relative 'menu'
+require_relative 'io'
 
 # The main application class for managing rentals of books to people.
 class App
   def initialize
-    @people = []
     @books = []
+    @people = []
     @rentals = []
-  end
-
-  def list_books
-    puts 'All books:'
-    if @books.empty?
-      puts 'No books available.'
-    else
-      @books.each do |book|
-        puts "Title:\"#{book.title}\", Author:#{book.author}"
-      end
-    end
+    @book_lister = BookLister.new(@books)
+    @menu = Menu.new
+    @io = @io = IO.new(
+      book_lister: BookLister.new(@books)
+    )
   end
 
   def list_people
@@ -98,6 +94,16 @@ class App
   def print_rentals(rentals)
     rentals.each do |rental|
       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+    end
+  end
+
+  def start
+    loop do
+      @menu.print
+      choice = gets.chomp.downcase
+      break unless @io.handle_choice(choice)
+
+      puts "\n"
     end
   end
 end
