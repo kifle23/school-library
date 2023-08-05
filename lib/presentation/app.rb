@@ -18,23 +18,13 @@ class App
     @rentals = []
     @book_lister = BookLister.new(@books)
     @person_lister = PersonLister.new(@people)
+    @person_creator = PersonCreator.new(@people)
     @menu = Menu.new
     @io = @io = IO.new(
       book_lister: BookLister.new(@books),
-      person_lister: PersonLister.new(@people)
+      person_lister: PersonLister.new(@people),
+      person_creator: PersonCreator.new(@people)
     )
-  end
-
-  def create_person
-    puts 'Do you want to create a Student (1) or Teacher (2)? [Input the number]:'
-    choice = gets.chomp.to_i
-    person_creator = PersonCreator.new(@people)
-    case choice
-    when 1
-      person_creator.create_student
-    when 2
-      person_creator.create_teacher
-    end
   end
 
   def create_book

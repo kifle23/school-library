@@ -8,6 +8,18 @@ class PersonCreator
     @people = people
   end
 
+  def create_person
+    puts 'Do you want to create a Student (1) or Teacher (2)? [Input the number]:'
+    choice = gets.chomp.to_i
+    person_creator = PersonCreator.new(@people)
+    case choice
+    when 1
+      person_creator.create_student
+    when 2
+      person_creator.create_teacher
+    end
+  end
+
   def create_student
     name = read_person_name_from_user_input('Student')
     age = read_person_age_from_user_input
