@@ -15,7 +15,7 @@ class IO
       '3' => CreatePersonStrategy.new(args[:person_creator]),
       '4' => CreateBookStrategy.new(args[:book_creator]),
       '5' => CreateRentalStrategy.new(args[:rental_creator]),
-      '6' => ListAllRentalsStrategy.new(args[:rental_lister]),
+      '6' => ListRentalsByPersonId.new(args[:rental_lister]),
       '7' => ExitStrategy.new
     }
   end
@@ -81,7 +81,7 @@ class CreateRentalStrategy
   end
 end
 
-class ListAllRentalsStrategy
+class ListRentalsByPersonId
   def initialize(lister)
     @lister = lister
   end

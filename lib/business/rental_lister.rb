@@ -1,4 +1,5 @@
 require_relative '../domain/rental'
+
 class RentalLister
   def initialize(rentals, people, books)
     @rentals = rentals

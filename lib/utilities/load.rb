@@ -23,9 +23,23 @@ class Load
     def load_people_from_json(data)
         case data['type']
         when 'Student'
-          Student.new(data['name'], data['age'], data['classroom']['label'], parent_permission: data['parent_permission'], id: data['id'])
+          Student.new(data['name'], data['age'], data['classroom'], parent_permission: data['parent_permission'], id: data['id'])
         when 'Teacher'
           Teacher.new(data['name'],data['age'], data['specialization'], id: data['id'])
         end
     end
+
+    def load_rentals_from_json(data)
+      Rental.new(
+        data['date'],
+        Book.new(data['book']['title'], data['book']['author'], id: data['book']['id']),
+        Person.new(
+          data['person']['name'],
+          data['person']['age'],
+          parent_permission: data['person']['parent_permission'],
+          id: data['person']['id']
+        ),
+        id: data['id']
+      )
+    end    
 end

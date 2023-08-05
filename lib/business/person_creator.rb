@@ -54,7 +54,7 @@ class PersonCreator
   end
 
   def create_new_student(name, age, parent_permission, classroom_label)
-    student = Student.new(name, age, Classroom.new(classroom_label), parent_permission: parent_permission)
+    student = Student.new(name, age, classroom_label, parent_permission: parent_permission)
     @people << student
     student
   end

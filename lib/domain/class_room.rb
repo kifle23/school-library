@@ -9,7 +9,8 @@ class Classroom
 
   def to_h
     {
-      label: @label
+      label: @label,
+      students: @students.map(&:to_h)
     }
   end
 

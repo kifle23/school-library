@@ -49,5 +49,6 @@ class App
   def load_data
     @books = Load.new(BOOKS_FILE, :load_books_from_json).execute || []
     @people = Load.new(PEOPLE_FILE, :load_people_from_json).execute || []
+    @rentals = Load.new(RENTALS_FILE, :load_rentals_from_json).execute || []
   end
 end
