@@ -1,11 +1,24 @@
-require_relative 'person'
-require_relative 'student'
-require_relative 'class_room'
+require_relative '../domain/person'
+require_relative '../domain/student'
+require_relative '../domain/teacher'
+require_relative '../domain/class_room'
 
 # The PersonCreator class is responsible for creating new Person objects.
 class PersonCreator
   def initialize(people)
     @people = people
+  end
+
+  def create_person
+    puts 'Do you want to create a Student (1) or Teacher (2)? [Input the number]:'
+    choice = gets.chomp.to_i
+    person_creator = PersonCreator.new(@people)
+    case choice
+    when 1
+      person_creator.create_student
+    when 2
+      person_creator.create_teacher
+    end
   end
 
   def create_student
