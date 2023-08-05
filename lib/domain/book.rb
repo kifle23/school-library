@@ -3,7 +3,8 @@
 class Book
   attr_accessor :title, :author, :rentals
 
-  def initialize(title, author)
+  def initialize(title, author, id: 0)
+    @id = id.zero? ? rand(1000..10_000) : id
     @title = title
     @author = author
     @rentals = []
@@ -13,5 +14,13 @@ class Book
     rental = Rental.new(date, self, person)
     @rentals << rental
     person.add_rental(rental)
+  end
+
+  def to_h
+    {
+      id: @id,
+      title: @title,
+      author: @author
+    }
   end
 end

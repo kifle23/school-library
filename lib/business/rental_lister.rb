@@ -1,4 +1,5 @@
 require_relative '../domain/rental'
+
 class RentalLister
   def initialize(rentals, people, books)
     @rentals = rentals
@@ -37,7 +38,7 @@ class RentalLister
   end
 
   def get_rentals_by_person(person)
-    @rentals.select { |r| r.person == person }
+    @rentals.select { |r| r.person.id == person.id && r.person.name == person.name }
   end
 
   def print_rentals(rentals)

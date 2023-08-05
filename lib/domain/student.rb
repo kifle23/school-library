@@ -4,10 +4,22 @@ require_relative 'person'
 class Student < Person
   attr_accessor :classroom
 
-  def initialize(name = 'Unknown', age = 0, parent_permission: true, classroom: nil)
-    super(name, age, parent_permission: parent_permission)
+  def initialize(name, age, classroom, **defaults)
+    defaults[:parent_permission] = true if defaults[:parent_permission].nil?
+    super(name, age, **defaults)
     @classroom = nil
     self.classroom = classroom if classroom
+  end
+
+  def to_h
+    {
+      type: self.class.name,
+      id: @id,
+      name: @name,
+      age: @age,
+      parent_permission: @parent_permission,
+      classroom: @classroom
+    }
   end
 
   def play_hooky

@@ -3,9 +3,19 @@
 class Teacher < Person
   attr_reader :specialization
 
-  def initialize(name = 'Unknown', age = 0, specialization = 'Unknown')
-    super(name, age)
+  def initialize(name, age, specialization, **defaults)
+    super(name, age, **defaults)
     @specialization = specialization
+  end
+
+  def to_h
+    {
+      type: self.class.name,
+      id: @id,
+      name: @name,
+      age: @age,
+      specialization: @specialization
+    }
   end
 
   def can_use_services?
