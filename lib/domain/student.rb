@@ -10,6 +10,17 @@ class Student < Person
     self.classroom = classroom if classroom
   end
 
+  def to_h
+    {
+      type: self.class.name,
+      id: @id,
+      name: @name,
+      age: @age,
+      parent_permission: @parent_permission,
+      classroom: @classroom
+    }
+  end
+
   def play_hooky
     '¯\\(ツ)/¯'
   end
