@@ -14,7 +14,7 @@ class Save
       existing_ids = existing_data.map { |d| d['id'] }
       @data.reject! { |new_d| existing_ids.include?(new_d[:id]) }
     end
-    
+
     updated_data = existing_data + @data.map(&:to_h)
     File.write(@file_path, JSON.generate(updated_data))
   end
