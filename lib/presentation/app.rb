@@ -20,19 +20,21 @@ class App
     @person_lister = PersonLister.new(@people)
     @person_creator = PersonCreator.new(@people)
     @book_creator = BookCreator.new(@books)
+    @rental_creator = RentalCreator.new(@books, @people, @rentals)
     @menu = Menu.new
     @io = @io = IO.new(
       book_lister: BookLister.new(@books),
       person_lister: PersonLister.new(@people),
       person_creator: PersonCreator.new(@people),
-      book_creator: BookCreator.new(@books)
+      book_creator: BookCreator.new(@books),
+      rental_creator: RentalCreator.new(@books, @people, @rentals),
     )
   end
 
-  def create_rental
-    rental_creator = RentalCreator.new(@books, @people, @rentals)
-    rental_creator.create_rental
-  end
+  # def create_rental
+  #   rental_creator = RentalCreator.new(@books, @people, @rentals)
+  #   rental_creator.create_rental
+  # end
 
   def list_rentals_by_person_id
     person_id = read_person_id_from_user_input

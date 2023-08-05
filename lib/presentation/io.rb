@@ -1,6 +1,7 @@
 require_relative '../business/book_lister'
 require_relative '../business/person_lister'
 require_relative '../business/person_creator'
+require_relative '../business/rental_creator'
 
 class IO
   def initialize(args = {})
@@ -9,6 +10,7 @@ class IO
       '2' => ListAllPeopleStrategy.new(args[:person_lister]),
       '3' => CreatePersonStrategy.new(args[:person_creator]),
       '4' => CreateBookStrategy.new(args[:book_creator]),
+      '5' => CreateRentalStrategy.new(args[:rental_creator]),
       '7' => ExitStrategy.new
     }
   end
@@ -59,6 +61,17 @@ class CreateBookStrategy
   
     def execute
       @creator.create_book
+      true
+    end
+end
+
+class CreateRentalStrategy
+    def initialize(creator)
+      @creator = creator
+    end
+  
+    def execute
+      @creator.create_rental
       true
     end
 end
