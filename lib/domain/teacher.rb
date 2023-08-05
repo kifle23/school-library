@@ -8,6 +8,16 @@ class Teacher < Person
     @specialization = specialization
   end
 
+  def to_h
+    {
+      type: self.class.name,
+      id: @id,
+      name: @name,
+      age: @age,
+      specialization: @specialization
+    }
+  end
+
   def can_use_services?
     true
   end
